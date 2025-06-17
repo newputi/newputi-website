@@ -1,45 +1,38 @@
 <!DOCTYPE html>
 <html lang="th">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Newputi โต๊ะเดือด!</title>
   <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
   <style>
+    * {
+      box-sizing: border-box;
+    }
+
     body {
       margin: 0;
       padding: 0;
       background-color: #000;
       font-family: 'Press Start 2P', cursive;
       color: #fff;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-height: 100vh;
+      background-image: linear-gradient(160deg, #000 0%, #0a0a0a 100%);
+      overflow-x: hidden;
+    }
+
+    header {
       text-align: center;
+      margin: 50px 20px 20px;
     }
 
     h1 {
-      margin: 30px 10px 20px;
-      font-size: 1.5em;
-      text-shadow: 0 0 10px #00ffe7, 0 0 20px #00ffe7;
-    }
-
-    .my-button {
-      display: block;
-      width: 80%;
-      max-width: 300px;
-      margin: 10px auto;
-      background: rgba(0,255,231,0.2);
-      color: #fff;
-      padding: 14px 20px;
-      border: 2px solid #00ffe7;
-      border-radius: 25px;
-      box-shadow: 0 0 10px #00ffe7, inset 0 0 5px #00ffe7;
-      font-size: 1em;
-      cursor: pointer;
-      transition: 0.3s;
-    }
-
-    .my-button:hover {
-      background: rgba(0,255,231,0.4);
-      transform: scale(1.05);
+      font-size: 1.8em;
+      color: #00ffe7;
+      text-shadow: 0 0 10px #00ffe7, 0 0 20px #ff00f5;
     }
 
     .divider {
@@ -50,12 +43,38 @@
       border-radius: 2px;
     }
 
+    .button-group {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 20px;
+      padding: 20px;
+      max-width: 900px;
+    }
+
+    .my-button {
+      background: rgba(0, 255, 231, 0.15);
+      color: #fff;
+      border: 2px solid #00ffe7;
+      border-radius: 20px;
+      padding: 16px 24px;
+      text-decoration: none;
+      font-size: 0.9em;
+      box-shadow: 0 0 12px #00ffe7, inset 0 0 6px #00ffe7;
+      transition: all 0.3s ease;
+    }
+
+    .my-button:hover {
+      background: rgba(0, 255, 231, 0.35);
+      transform: translateY(-3px) scale(1.03);
+    }
+
     .run {
       position: absolute;
-      top: 85%;
+      bottom: 30px;
       left: -150px;
       width: 80px;
-      animation: runAcross 8s linear infinite;
+      animation: runAcross 10s linear infinite;
       z-index: 10;
     }
 
@@ -64,40 +83,48 @@
       100% { left: 100%; }
     }
 
-    @media screen and (max-width: 480px) {
+    audio {
+      display: none;
+    }
+
+    @media screen and (max-width: 600px) {
       h1 {
-        font-size: 1em;
+        font-size: 1.2em;
       }
+
       .my-button {
-        font-size: 0.9em;
-        padding: 10px 16px;
+        width: 80%;
+        max-width: 300px;
+        padding: 12px 16px;
       }
+
       .run {
         width: 60px;
-        top: 90%;
+        bottom: 20px;
       }
     }
   </style>
 </head>
 <body>
 
-  <h1>Newputi โต๊ะเดือด!</h1>
+  <header>
+    <h1>Newputi โต๊ะเดือด!</h1>
+  </header>
 
   <div class="divider"></div>
 
-  <button class="my-button" onclick="playClick()">กดฉันสิ!</button>
-
-  <div class="divider"></div>
-
-  <a href="https://www.tiktok.com/@newputi" target="_blank" class="my-button">TikTok 🔥</a>
-  <a href="https://discord.com/invite/xxxxx" target="_blank" class="my-button">Discord 🎮</a>
-  <a href="https://instagram.com/xxxxx" target="_blank" class="my-button">Instagram 📸</a>
-  <a href="https://donate.example.com" target="_blank" class="my-button">โดเนท ❤️</a>
+  <div class="button-group">
+    <button class="my-button" onclick="playClick()">กดฉันสิ!</button>
+    <a href="https://www.tiktok.com/@newputi" class="my-button" target="_blank">TikTok 🔥</a>
+    <a href="https://discord.com/invite/xxxxx" class="my-button" target="_blank">Discord 🎮</a>
+    <a href="https://instagram.com/xxxxx" class="my-button" target="_blank">Instagram 📸</a>
+    <a href="https://donate.example.com" class="my-button" target="_blank">โดเนท ❤️</a>
+  </div>
 
   <!-- ตัวละครวิ่ง -->
-  <img src="https://i.imgur.com/7M4nsyW.gif" alt="Toji Running" class="run">
+  <img src="https://i.imgur.com/7M4nsyW.gif" alt="Toji Running" class="run" />
 
-  <!-- เสียงเปิดเว็บ + ปุ่มกด -->
+  <!-- เสียง -->
   <audio id="welcomeSound" src="https://www.soundjay.com/buttons/sounds/button-10.mp3"></audio>
   <audio id="clickSound" src="https://www.soundjay.com/buttons/sounds/button-4.mp3"></audio>
 
@@ -109,11 +136,10 @@
     window.addEventListener("load", () => {
       const welcome = document.getElementById('welcomeSound');
       welcome.play().catch(() => {
-        console.log("Autoplay ถูกบล็อกโดยเบราว์เซอร์ รอผู้ใช้คลิกแทน");
+        console.log("Autoplay ถูกบล็อก – เล่นเสียงหลังจากคลิกแทน");
       });
     });
   </script>
 
 </body>
 </html>
-
